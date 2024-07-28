@@ -25,11 +25,18 @@ const  Home = () => {
             if (response.ok) { 
                 alert("Reservation successful under the name " + reservationData.reservedUnderName);
             }
+
         } catch (error) {
             console.error('Error:', error);
             alert('An error occurred while making the reservation.');
         }
-       
+        document.getElementById('name').value = "";
+        document.getElementById('roomType').value = "";
+        document.getElementById('checkIn').value = "";
+        document.getElementById('checkOut').value = "";
+        document.getElementById('adults').value = "";
+        document.getElementById('children').value = "";
+        document.getElementById('payment').value = "";
     };
     return ( 
         <div className = 'Home'>
