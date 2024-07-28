@@ -1,14 +1,21 @@
 
 import './App.css';
+import Home from './Pages/Home.js';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <div>
-        <h1 className ='text-6xl text-center'>
-          Hotel Checking System
-        </h1>  
-      </div>
+        <h1 className ='text-3xl text-center'> ITISDEV MP - Hotel Check In/Out </h1>  
+        <Router>
+          <Routes>
+            <Route path="/" Component={Home} />
+          </Routes>
+        </Router>
     </div>
   );
 }
