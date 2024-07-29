@@ -28,28 +28,32 @@ const Payment = () => {
         if (!reservationResponse.ok) {
             alert(reservationResult.error);
             return;
+        }else{
+            const guestInfo = {
+                title: guest.title,
+                fullName: guest.fullName,
+                gender: guest.gender,   
+                email: guest.email,
+                phone: guest.phone,
+                address: guest.address,
+                reservationId: reservationResult._id
+           };
+            const guestResponse = await fetch('/api/record', {
+                method: 'POST',
+                body: JSON.stringify(guestInfo),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const guestResult = await guestResponse.json();
+            if (!guestResponse.ok) {
+                alert(guestResult.error);
+                return;
+            }
+               alert('Payment Successful. Please check your email for the confirmation of your reservation and pin code for checking In/Out.');
+               navigate('/');
         }
-        const guestInfo = {
-             title: guest.title,
-             fullName: guest.fullName,
-             gender: guest.gender,   
-             email: guest.email,
-             phone: guest.phone,
-             address: guest.address,
-             reservationId: reservationResult._id
-        };
-         const guestResponse = await fetch('/api/record', {
-             method: 'POST',
-             body: JSON.stringify(guestInfo),
-             headers: {
-                 'Content-Type': 'application/json',
-             },
-         });
-         const guestResult = await guestResponse.json();
-         if (!guestResponse.ok) {
-             alert(guestResult.error);
-             return;
-         }
+        
 
     };
 
@@ -79,8 +83,8 @@ const Payment = () => {
                 <input type="text" name="cvv" id="cvv" className="w-full bg-gray-300 pl-1" placeholder="CVV" />
                 <label htmlFor="billingAddress">Billing Address</label>
                 <input type="text" name="billingAddress" id="billingAddress" className="w-full bg-gray-300 pl-1 mb-5" placeholder="Billing Address" />
-                <button className="w-36 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>Pay</button>
-                <button className="w-36 bg-red-500 hover:bg-red-700 ml-3 text-white font-bold py-2 px-4 rounded" onClick={() => navigate('/')}>Back</button>
+                <button className="w-36 bg-red-500 hover:bg-red-700   text-white font-bold py-2 px-4 rounded" onClick={() => navigate('/')}>Back</button>
+                <button className="w-36 bg-blue-500 hover:bg-blue-700 ml-3.5 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>Pay</button>
 
             </form>
         </div>
