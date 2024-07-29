@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const reservationRouter = require('./routes/reservationRouter');
+const guestRouter = require('./routes/guestRouter');
+
 const { default: mongoose } = require('mongoose');
 
 
@@ -14,6 +16,7 @@ app.use((req, res, next) => {
 
 //routes
 app.use('/api/reserve', reservationRouter);
+app.use('/api/record', guestRouter);
 
 //connect to db
 mongoose.connect(process.env.URL)

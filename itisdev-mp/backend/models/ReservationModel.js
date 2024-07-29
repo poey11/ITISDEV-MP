@@ -1,7 +1,7 @@
 const moongose = require('mongoose');
 
 const reservationSchema = new moongose.Schema({
-    reservedUnderName: {
+    roomTitle: {
         type: String,
         required: true
     },
@@ -17,19 +17,10 @@ const reservationSchema = new moongose.Schema({
         type: Date,
         required: true
     },
-    NoOfAdults: {
+    days: {
         type: Number,
-        required: true
-    },
-    NoOfChildren: {
-        type: Number,
-        required: true
-    },
-    paymentMethod: {
-        type: String,
         required: true
     }
-
 }, {timestamps: true});
 
 module.exports = moongose.model('Reservation', reservationSchema, 'Reservations');
