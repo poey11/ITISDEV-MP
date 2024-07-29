@@ -34,17 +34,6 @@ const guestSchema = new moongose.Schema({
 }, {timestamps: true});
 
 
-guestSchema.pre('save', async function(next){
-    const guest = this;
-    if(guest.isModified('reservationId')){
-        const Reservation = require('./ReservationModel');
-        const reservation = await Reservation.findById(guest.reservationId);
-        if(!reservation){
-            throw new Error('Invalid Reservation ID');
-        }
-    }
-    next();
-});
 
 
 module.exports = moongose.model('Guest', guestSchema, 'Guests');
