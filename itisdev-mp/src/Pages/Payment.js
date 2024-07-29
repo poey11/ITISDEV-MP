@@ -28,32 +28,30 @@ const Payment = () => {
         if (!reservationResponse.ok) {
             alert(reservationResult.error);
             return;
-        }else{
-            const guestInfo = {
-                title: guest.title,
-                fullName: guest.fullName,
-                gender: guest.gender,   
-                email: guest.email,
-                phone: guest.phone,
-                address: guest.address,
-                reservationId: reservationResult._id
-           };
-            const guestResponse = await fetch('/api/record', {
-                method: 'POST',
-                body: JSON.stringify(guestInfo),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const guestResult = await guestResponse.json();
-            if (!guestResponse.ok) {
-                alert(guestResult.error);
-                return;
-            }
-               alert('Payment Successful. Please check your email for the confirmation of your reservation and pin code for checking In/Out.');
-               navigate('/');
         }
-        
+        const guestInfo = {
+             title: guest.title,
+             fullName: guest.fullName,
+             gender: guest.gender,   
+             email: guest.email,
+             phone: guest.phone,
+             address: guest.address,
+             reservationId: reservationResult._id
+        };
+         const guestResponse = await fetch('/api/record', {
+             method: 'POST',
+             body: JSON.stringify(guestInfo),
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+         });
+         const guestResult = await guestResponse.json();
+         if (!guestResponse.ok) {
+             alert(guestResult.error);
+             return;
+         }
+            alert('Payment Successful. Please check your email for the confirmation of your reservation and pin code for checking In/Out.');
+            navigate('/');
 
     };
 
