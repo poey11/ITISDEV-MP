@@ -20,6 +20,10 @@ const reservationSchema = new moongose.Schema({
     days: {
         type: Number,
         required: true
+    },
+    pin: {
+        type: String,
+        required: true
     }
 }, {timestamps: true});
 
