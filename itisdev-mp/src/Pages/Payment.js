@@ -7,6 +7,32 @@ const Payment = () => {
     const location = useLocation();
     const { state } = location;
     const { reservationData, roomTitle, roomPrice,guest } = state || {};
+    function pinGenerator(){
+        let pin = '';
+        for(let i=0; i<5; i++){
+            pin += Math.floor(Math.random() * 10);
+        }
+        return pin;
+    }
+    const getNumberOfDays = (checkInDate, checkOutDate) => {
+        const checkIn = new Date(checkInDate);
+        const checkOut = new Date(checkOutDate);
+        const timeDifference = checkOut.getTime() - checkIn.getTime();
+        const daysDifference = timeDifference / (1000 * 3600 * 24); // Convert time difference from milliseconds to days
+        return daysDifference;
+    };
+    const days = getNumberOfDays(reservationData.checkIn, reservationData.checkOut);
+    const emailText = "Thank you for choosing our hotel. Your reservation details are as follows: \n\n" 
+    + "Reservation Named Under: " + guest.title +". "+ guest.fullName + "\n"
+    + "Room Title: " + roomTitle + "\n"
+    + "Room Type: " + reservationData.roomType + "\n"
+    + "Check In: " + reservationData.checkIn + "\n"
+    + "Check Out: " + reservationData.checkOut + "\n"
+    + "Nos of Days: " + days + " Days\n"
+    + "Total Amount: $" + parseFloat(days) * parseInt(roomPrice) + "\n"
+    + "Check In/out Pin: " + pinGenerator() + "\n\n"
+    + "Thank you for booking in our hotel and have a great day!";
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const reservation ={
@@ -14,7 +40,8 @@ const Payment = () => {
             roomType: reservationData.roomType,
             checkIn: reservationData.checkIn,
             checkOut: reservationData.checkOut,
-            days: getNumberOfDays(reservationData.checkIn, reservationData.checkOut)
+            days: getNumberOfDays(reservationData.checkIn, reservationData.checkOut),
+            pin: pinGenerator()
         }
         
         const reservationResponse = await fetch('/api/reserve', {
@@ -50,27 +77,36 @@ const Payment = () => {
              alert(guestResult.error);
              return;
          }
-            alert('Payment Successful. Please check your email for the confirmation of your reservation and pin code for checking In/Out.');
-            navigate('/');
-
+            
+        const email = {
+            email: guest.email,
+            subject: 'Hotel Reservation Details',
+            text: emailText,
+        };
+        const emailResponse = await fetch('/api/send-email', {
+            method: 'POST',
+            body: JSON.stringify(email),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const emailResult = await emailResponse.json();
+        if (!emailResponse.ok) {
+            alert(emailResult.error);
+            return;
+        }
+        alert('Reservation Successful. Reservation details sent to email!');
+        navigate('/');
     };
 
-    const getNumberOfDays = (checkInDate, checkOutDate) => {
-        const checkIn = new Date(checkInDate);
-        const checkOut = new Date(checkOutDate);
-        const timeDifference = checkOut.getTime() - checkIn.getTime();
-        const daysDifference = timeDifference / (1000 * 3600 * 24); // Convert time difference from milliseconds to days
-        return daysDifference;
-    };
-    const days = getNumberOfDays(reservationData.checkIn, reservationData.checkOut);
+    
     return (
         <div className="flex justify-center">
             <form className="w-1/2">
-           
                 <h1 className="text-2xl text-center">Payment</h1>
                 <h1 className="text-2xl text-center">Total: <b>${parseFloat(days) * parseInt(roomPrice)}</b> </h1>
                 <h1 className="text-1xl">Items: </h1>
-                <h1 className=" text-gray-600"><b>{roomTitle} - ${roomPrice} x {days}</b></h1>
+                <h1 className=" text-gray-600"><b>{roomTitle} - ${roomPrice} x {days} Days</b></h1>
                 <label htmlFor="CardNumber">Card Number</label>
                 <input type="text" name="CardNumber" id="CardNumber" className="w-full bg-gray-300 pl-1" placeholder="4123 2323 0982 4520" />
                 <label htmlFor="nameOnCard">Card Holder Name</label>
