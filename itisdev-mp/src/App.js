@@ -4,6 +4,8 @@ import Home from './Pages/Home.js';
 import GuestInfo from './Pages/GuestInfo.js';
 import PickARoom from './Pages/PickARoom.js';
 import Payment from './Pages/Payment.js';
+import CheckInPage from './Pages/CheckInPage';
+import CheckInSuccessPage from './Pages/CheckInSuccessPage';
 import {
   BrowserRouter as Router,
   Route,
@@ -20,6 +22,8 @@ function App() {
             <Route path='/guestinfo' Component={GuestInfo} />
             <Route path='/rooms' Component={PickARoom} />
             <Route path='/payment' Component={Payment} />
+            <Route path='/checkin' element={<CheckInPage />} />
+            <Route path='/checkin-success' element={<CheckInSuccessPage />} />
           </Routes>
         </Router>
     </div>

@@ -9,6 +9,10 @@ const reservationSchema = new moongose.Schema({
         type: String,
         required: true
     },
+    roomNumber: {
+        type: String,
+        required: true
+    },
     checkIn: {
         type: Date,
         required: true
