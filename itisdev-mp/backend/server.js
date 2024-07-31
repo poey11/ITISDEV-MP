@@ -20,6 +20,8 @@ app.use('/api/reserve', reservationRouter);
 app.use('/api/record', guestRouter);
 app.use('/api/send-email', emailRouter);
 app.use('/api/checkin', checkInRouter);
+
+
 //connect to db
 mongoose.connect(process.env.URL)
     .then((result) => {
