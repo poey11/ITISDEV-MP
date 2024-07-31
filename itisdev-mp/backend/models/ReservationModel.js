@@ -13,10 +13,6 @@ const reservationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    checkIn: {
-        type: Date,
-        required: true
-    },
     checkOut: {
         type: Date,
         required: true
@@ -29,7 +25,7 @@ const reservationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    checkInTime: {  
+    checkInTime: {
         type: Date
     }
 }, {timestamps: true});
