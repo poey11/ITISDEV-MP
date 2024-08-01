@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style/styles.css" rel="stylesheet">
+    <style>
+        .pay-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .pay-container {
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 500px;
+            padding: 2rem;
+            border: 2px solid black;
+            position: relative;
+        }
+
+        .pay-button {
+            background-color: #994a1d;
+            color: white;
+            font-size: 1.25rem;
+            padding: 0.4rem 1rem;
+            border-radius: 90px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            top: 1rem;
+        }
+
+        .pay-button:hover {
+            background-color: #C87941;
+        }
+
+        .pay-details {
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .pay-total {
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .pay-dropbtn {
+            background-color: #994a1d;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+        }
+        
+        .pay-dropbtn:hover {
+            background-color: #C87941;
+        }
+        
+        .pay-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .pay-drpcontent {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .pay-drpcontent a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .pay-drpcontent a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+    </style>
+</head>
+<body class="text-gray-300 min-h-screen flex flex-col justify-between bg-[#431412]">
+    <header id="navbar" class="p-4 shadow-lg bg-[#431412]">
+        <nav class="flex justify-center space-x-8">
+            <a href="index.html" class="text-gray-300 hover:text-[#D3836]">Home</a>
+            <a href="#" id="about-link" class="text-gray-300 hover:text-[#D3836]">About Us</a>
+            <a href="#" id="contact-link" class="text-gray-300 hover:text-[#D3836]">Contact Us</a>
+            <a href="profile.html" class="text-gray-300 hover:text-[#D3836]">Profile</a>
+        </nav>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-8">
+        <div class="pay-container bg-gray-800 rounded-lg shadow-lg p-6">
+            <h2 class="pay-title text-3xl font-semibold text-center mb-6">Payment</h2>
+            <div class="pay space-y-4">
+                <div class="pay-details">
+                    <span class="font-semibold">Room Type:</span> 
+                </div>
+                <div class="pay-details">
+                    <span class="font-semibold">Start Date:</span> 
+                </div>
+                <div class="pay-details">
+                    <span class="font-semibold">End Date:</span> 
+                </div>
+                <div class="pay-total text-xl font-bold">
+                    <span class="font-semibold">Total:</span> 
+                </div>
+            </div>
+
+            <!-- Dropdown for Payment Mode -->
+            <div class="pay-dropdown mt-6">
+                <button class="pay-dropbtn" onclick="toggleDropdown()">Choose Mode of Payment</button>
+                <div class="pay-drpcontent">
+                    <a href="#" onclick="selectOption(this)">Gcash</a>
+                    <a href="#" onclick="selectOption(this)">BPI</a>
+                    <a href="#" onclick="selectOption(this)">Cash</a>
+                </div>
+            </div>
+            <form action = "index.html"><button type="submit" class="pay-button mt-6">Pay</button></form>
+            
+        </div>
+    </main>
+
+    <footer class="bg-[#431412] text-center p-4">
+        <p style="color: #f1e9e1;">&copy; 2024 Hotel ni Malcolm</p>
+    </footer>
+
+
+    <script>
+        document.getElementById('about-link').addEventListener('click', function() {
+            document.getElementById('about-popup').classList.remove('hidden');
+        });
+  
+        document.getElementById('contact-link').addEventListener('click', function() {
+            document.getElementById('contact-popup').classList.remove('hidden');
+        });
+  
+        function closePopup(popupId) {
+            document.getElementById(popupId).classList.add('hidden');
+        }
+    </script>
+
+    <!-- About Us -->
+    <div id="about-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="popup-container">
+            <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('about-popup')">X</button>
+            <h2 style="font-weight: bolder;" class="text-2xl mb-4">About Us</h2>
+            <p>Welcome to Hotel ni Malcolm, where comfort meets luxury in the heart of Manila. Our hotel offers a blend of modern amenities and traditional hospitality to make your stay unforgettable. Whether you're here for business or leisure, our dedicated team is committed to providing exceptional service and ensuring a memorable experience. Explore the vibrant city of Manila while enjoying the tranquility of our elegant accommodations.</p>
+        </div>
+    </div>
+
+    <!-- Contact Us -->
+    <div id="contact-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="popup-container">
+            <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('contact-popup')">X</button>
+            <h2 style="font-weight: bolder;" class="text-2xl mb-4">Contact Us</h2>
+            <p>For inquiries or reservations, please reach out to us:</p>
+            <p><strong>Address:</strong> Hotel ni Malcolm, Manila, PH</p>
+            <p><strong>Phone:</strong> +63 9120328432</p>
+            <p><strong>Email:</strong> <a href="mailto:info@hotel.com">info@yourhotel.com</a></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            var dropdownContent = document.querySelector(".pay-drpcontent");
+            dropdownContent.style.display = dropdownContent.style.display === "block" ? "none" : "block";
+        }
+
+        function selectOption(element) {
+            var button = document.querySelector(".pay-dropbtn");
+            button.textContent = element.textContent;
+            toggleDropdown(); // Close the dropdown after selecting an option
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.pay-dropbtn')) {
+                var dropdowns = document.getElementsByClassName("pay-drpcontent");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === "block") {
+                        openDropdown.style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
