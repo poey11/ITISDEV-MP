@@ -125,23 +125,23 @@ const Payment = () => {
              return;
          }
             
-        const email = {
-            email: guest.email,
-            subject: 'Hotel Reservation Details',
-            text: emailText,
-        };
-        const emailResponse = await fetch('/api/send-email', {
-            method: 'POST',
-            body: JSON.stringify(email),
-            headers: {
-                'Content-Type': 'application/json', 
-            },
-        });
-        const emailResult = await emailResponse.json();
-        if (!emailResponse.ok) {
-            alert(emailResult.error);
-            return;
-        }
+        // const email = {
+        //     email: guest.email,
+        //     subject: 'Hotel Reservation Details',
+        //     text: emailText,
+        // };
+        // const emailResponse = await fetch('/api/send-email', {
+        //     method: 'POST',
+        //     body: JSON.stringify(email),
+        //     headers: {
+        //         'Content-Type': 'application/json', 
+        //     },
+        // });
+        // const emailResult = await emailResponse.json();
+        // if (!emailResponse.ok) {
+        //     alert(emailResult.error);
+        //     return;
+        // }
         alert('Reservation Successful. Reservation details sent to email!');
         navigate('/');
     };
