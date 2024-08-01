@@ -1,6 +1,6 @@
-const moongose = require('mongoose');
+const mongoose = require('mongoose');
 
-const reservationSchema = new moongose.Schema({
+const reservationSchema = new mongoose.Schema({
     roomTitle: {
         type: String,
         required: true
@@ -9,8 +9,8 @@ const reservationSchema = new moongose.Schema({
         type: String,
         required: true
     },
-    checkIn: {
-        type: Date,
+    roomNumber: {
+        type: String,
         required: true
     },
     checkOut: {
@@ -20,8 +20,14 @@ const reservationSchema = new moongose.Schema({
     days: {
         type: Number,
         required: true
+    },
+    pin: {
+        type: String,
+        required: true
+    },
+    checkInTime: {
+        type: Date
     }
 }, {timestamps: true});
 
-module.exports = moongose.model('Reservation', reservationSchema, 'Reservations');
-
+module.exports = mongoose.model('Reservation', reservationSchema, 'Reservations');

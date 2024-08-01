@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book A Room</title>
+    <link href="style/styles.css" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@1.6.0/dist/flowbite.min.css" rel="stylesheet">
+</head>
+
+<style>
+    .date-picker {
+        width: 100%;
+        padding-right: 5.5rem;
+    }
+    .book-button {
+        background-color: #994a1d;
+    }
+</style>
+<body class="bg-gray-900 text-gray-300 min-h-screen flex flex-col">
+    <header id="navbar" class="p-4 shadow-lg">
+        <nav class="flex justify-center space-x-8">
+            <a href="index.html" class="text-gray-300 hover:text-[#D3836]">Home</a>
+            <a href="#" id="about-link" class="text-gray-300 hover:text-[#D3836]">About</a>
+            <a href="#" id="contact-link" class="text-gray-300 hover:text-[#D3836]">Contact</a>
+            <a href="profile.html" class="text-gray-300 hover:text-[#D3836]">Profile</a>
+        </nav>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center justify-center text-center space-y-4">
+        <form id="booking-form" class="flex-grow flex flex-col items-center justify-center text-center space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="room-box" onclick="selectRoom(this)">
+                    <img src="/images/single.jpg" alt="Room 1">
+                    <h3>Single</h3>
+                    <p>₱3,500 per night</p>
+                    <a href="components.html">edit components</a>
+                </div>
+                <div class="room-box" onclick="selectRoom(this)">
+                    <img src="/images/double.png" alt="Room 2">
+                    <h3>Double</h3>
+                    <p>₱7,000 per night</p>
+                    <a href="components.html">edit components</a>
+                </div>
+                <div class="room-box" onclick="selectRoom(this)">
+                    <img src="/images/suite.jpg" alt="Room 3">
+                    <h3>Suite</h3>
+                    <p>₱15,500 per night</p>
+                    <a href="components.html">edit components</a>
+                </div>
+                <div class="room-box" onclick="selectRoom(this)">
+                    <img src="/images/luxury.jpg" alt="Room 4">
+                    <h3>Luxury</h3>
+                    <p>₱24,000 per night</p>
+                    <a href="components.html">edit components</a>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center mt-4 space-y-4">
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                            </svg>
+                        </div>
+                        <input id="datepicker-range-start" name="start" type="text" class="date-picker bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Select date start" required>
+                    </div>
+                    <div class="relative ml-4">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                            </svg>
+                        </div>
+                        <input id="datepicker-range-end" name="end" type="text" class="date-picker bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Select date end" required>
+                    </div>
+                </div>
+                <button type="submit" class="book-button mt-4">Book Now</button>
+            </div>
+        </form>
+    </main>
+    
+    <footer class="bg-[#431412] text-center p-4">
+        <p style="color: #f1e9e1;">&copy; 2024 Hotel ni Malcolm </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#datepicker-range-start", {
+            dateFormat: "Y-m-d",
+        });
+
+        flatpickr("#datepicker-range-end", {
+            dateFormat: "Y-m-d",
+        });
+    </script>
+
+<div id="book-popup" class="popup">
+    <div class="bg-white p-8 rounded shadow-lg text-center">
+        <p id="popup-message" class="text-black mb-4">Verification Successful for Justine Rosete. Please insert room card.</p>
+        <button id= "ok-btn" onclick="closePopup()" class="bg-[#994a1d] text-white font-bold py-2 px-4 rounded hover:bg-[#C87941]">Proceed to Payment</button>
+    </div>
+</div>
+
+    <script>
+        document.getElementById('about-link').addEventListener('click', function() {
+            document.getElementById('about-popup').classList.remove('hidden');
+        });
+
+        document.getElementById('contact-link').addEventListener('click', function() {
+            document.getElementById('contact-popup').classList.remove('hidden');
+        });
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).classList.add('hidden');
+        }
+        
+        function selectRoom(element) {
+            const rooms = document.querySelectorAll('.room-box');
+            rooms.forEach(room => room.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        document.getElementById('booking-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const selectedRoom = document.querySelector('.room-box.selected');
+            const startDate = document.getElementById('datepicker-range-start').value;
+            const endDate = document.getElementById('datepicker-range-end').value;
+
+            if (!selectedRoom) {
+                alert('Please select a room.');
+                event.preventDefault(); // Prevent form submission
+                return;
+            }
+
+            if (!startDate || !endDate) {
+                alert('Please select both start and end dates.');
+                event.preventDefault(); // Prevent form submission
+                return;
+            }
+
+            const message = `Room has been successfully booked! Please proceed to Payment.`;
+            document.getElementById('popup-message').textContent = message;
+            document.getElementById('book-popup').classList.add('show');
+            window.location.href = 'payment.html';
+        });
+
+        document.getElementById('ok-btn').addEventListener('click', function() {
+            // Redirect to additionalcharges.html
+            window.location.href = 'index.html';
+        });
+
+        function selectRoom(element) {
+            // Deselect any previously selected room
+            const previouslySelected = document.querySelector('.room-box.selected');
+            if (previouslySelected) {
+                previouslySelected.classList.remove('selected');
+            }
+            // Select the new room
+            element.classList.add('selected');
+        }
+
+    </script>
+
+    <!-- About Us -->
+    <div id="about-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="popup-container">
+            <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('about-popup')">X</button>
+            <h2 style="font-weight: bolder;" class="text-2xl mb-4">About Us</h2>
+            <p>Welcome to Hotel ni Malcolm, where comfort meets luxury in the heart of Manila. Our hotel offers a blend of modern amenities and traditional hospitality to make your stay unforgettable. Whether you're here for business or leisure, our dedicated team is committed to providing exceptional service and ensuring a memorable experience. Explore the vibrant city of Manila while enjoying the tranquility of our elegant accommodations.</p>
+        </div>
+    </div>
+
+    <!-- Contact Us -->
+    <div id="contact-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="popup-container">
+            <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('contact-popup')">X</button>
+            <h2 style="font-weight: bolder;" class="text-2xl mb-4">Contact Us</h2>
+            <p>For inquiries or reservations, please reach out to us:</p>
+            <p><strong>Address:</strong> Hotel ni Malcolm, Manila, PH</p>
+            <p><strong>Phone:</strong> +63 9120328432</p>
+            <p><strong>Email:</strong> <a href="mailto:info@hotel.com">info@yourhotel.com</a></p>         
+        </div>
+    </div>
+</body>
+</html>
+

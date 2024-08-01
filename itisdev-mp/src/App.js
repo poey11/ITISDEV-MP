@@ -6,6 +6,8 @@ import PickARoom from './Pages/PickARoom.js';
 import Payment from './Pages/Payment.js';
 import CheckoutVerification from './Pages/CheckoutVerification.js';
 import CheckoutAdditionalCharges from './Pages/CheckoutAdditionalCharges.js';
+import CheckInPage from './Pages/CheckInPage';
+import CheckInSuccessPage from './Pages/CheckInSuccessPage';
 import {
   BrowserRouter as Router,
   Route,
@@ -24,6 +26,8 @@ function App() {
             <Route path='/payment' Component={Payment} />
             <Route path='/CheckoutVerification' Component={CheckoutVerification} />
             <Route path='/CheckoutAdditionalCharges' Component={CheckoutAdditionalCharges} />
+            <Route path='/checkin' Component={CheckInPage } />
+            <Route path='/checkin-success' Component={CheckInSuccessPage } />
           </Routes>
         </Router>
     </div>
