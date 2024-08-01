@@ -22,8 +22,8 @@ function App() {
             <Route path='/guestinfo' Component={GuestInfo} />
             <Route path='/rooms' Component={PickARoom} />
             <Route path='/payment' Component={Payment} />
-            <Route path='/checkin' element={<CheckInPage />} />
-            <Route path='/checkin-success' element={<CheckInSuccessPage />} />
+            <Route path='/checkin' Component={CheckInPage } />
+            <Route path='/checkin-success' Component={CheckInSuccessPage } />
           </Routes>
         </Router>
     </div>

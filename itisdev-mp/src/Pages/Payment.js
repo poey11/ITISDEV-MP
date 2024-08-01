@@ -7,6 +7,27 @@ const Payment = () => {
     const location = useLocation();
     const { state } = location;
     const { reservationData, roomTitle, roomPrice,guest } = state || {};
+
+    function randomRoomNumber(roomType){
+        let roomNumber='';
+        if(roomType === 'Single'){  
+            roomNumber += 1;
+        }
+        else if(roomType === 'Double'){
+            roomNumber += 2;
+        }
+        else if(roomType === 'Suite'){
+            roomNumber += 3;
+        }
+        else if(roomType === 'Luxury'){
+            roomNumber += 4;
+        }
+        for(let i=0; i<2; i++){
+            roomNumber += Math.floor(Math.random() * 10);
+        }
+        return roomNumber;
+    }
+    
     function pinGenerator(){
         let pin = '';
         for(let i=0; i<5; i++){
@@ -14,6 +35,7 @@ const Payment = () => {
         }
         return pin;
     }
+
     const getNumberOfDays = (checkInDate, checkOutDate) => {
         const checkIn = new Date(checkInDate);
         const checkOut = new Date(checkOutDate);
@@ -22,7 +44,7 @@ const Payment = () => {
         return daysDifference;
     };
     const days = getNumberOfDays(reservationData.checkIn, reservationData.checkOut);
-    const emailText = "Thank you for choosing our hotel. Your reservation details are as follows: \n\n" 
+    const emailText = ["Thank you for choosing our hotel. Your reservation details are as follows: \n\n" 
     + "Reservation Named Under: " + guest.title +". "+ guest.fullName + "\n"
     + "Room Title: " + roomTitle + "\n"
     + "Room Type: " + reservationData.roomType + "\n"
@@ -31,16 +53,41 @@ const Payment = () => {
     + "Nos of Days: " + days + " Days\n"
     + "Total Amount: $" + parseFloat(days) * parseInt(roomPrice) + "\n"
     + "Check In/out Pin: " + pinGenerator() + "\n\n"
-    + "Thank you for booking in our hotel and have a great day!";
+    + "Thank you for booking in our hotel and have a great day!"]
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let roomAvailable = false;
+        let roomNumber;
+        while (!roomAvailable) {
+          
+            const roomRandom = randomRoomNumber(reservationData.roomType);
+            const getRoomDetails = await fetch(`/api/reserve/${roomRandom}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const roomDetails = await getRoomDetails.json();
+    
+            if (getRoomDetails.status === 404) { // if the status is 404 then it means the room is available
+                roomNumber = roomRandom
+                roomAvailable = true; // exit the loop
+            } else if (getRoomDetails.status === 200) { // if the status is 200 then it means the room is not available
+                roomAvailable = false; // continue the loop
+            } else { // if the status is not 200 or 404 then it means an error occurred
+                alert("Error Occurred");
+                navigate('/');
+                return;
+            }
+        }
         const reservation ={
             roomTitle: roomTitle,
             roomType: reservationData.roomType,
             checkIn: reservationData.checkIn,
             checkOut: reservationData.checkOut,
             days: getNumberOfDays(reservationData.checkIn, reservationData.checkOut),
+            roomNumber:roomNumber,
             pin: pinGenerator()
         }
         
@@ -78,23 +125,23 @@ const Payment = () => {
              return;
          }
             
-        const email = {
-            email: guest.email,
-            subject: 'Hotel Reservation Details',
-            text: emailText,
-        };
-        const emailResponse = await fetch('/api/send-email', {
-            method: 'POST',
-            body: JSON.stringify(email),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const emailResult = await emailResponse.json();
-        if (!emailResponse.ok) {
-            alert(emailResult.error);
-            return;
-        }
+        // const email = {
+        //     email: guest.email,
+        //     subject: 'Hotel Reservation Details',
+        //     text: emailText,
+        // };
+        // const emailResponse = await fetch('/api/send-email', {
+        //     method: 'POST',
+        //     body: JSON.stringify(email),
+        //     headers: {
+        //         'Content-Type': 'application/json', 
+        //     },
+        // });
+        // const emailResult = await emailResponse.json();
+        // if (!emailResponse.ok) {
+        //     alert(emailResult.error);
+        //     return;
+        // }
         alert('Reservation Successful. Reservation details sent to email!');
         navigate('/');
     };

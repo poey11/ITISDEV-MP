@@ -17,16 +17,12 @@ const checkInGuest = async (req, res) => {
             return res.status(400).json({ error: 'Invalid pin' });
         }
 
-        // Log the reservation before updating
-        console.log('Before updating checkInTime:', reservation);
 
         // Update the reservation to mark as checked in
         reservation.checkInTime = new Date();
         await reservation.save();
 
-        // Log the reservation after updating
-        console.log('After updating checkInTime:', reservation);
-
+  
         // Send the room number back to the client
         res.json({ message: 'Check-in successful', roomNumber: reservation.roomNumber });
     } catch (error) {
