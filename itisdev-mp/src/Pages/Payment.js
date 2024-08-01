@@ -44,7 +44,7 @@ const Payment = () => {
         return daysDifference;
     };
     const days = getNumberOfDays(reservationData.checkIn, reservationData.checkOut);
-    const emailText = ["Thank you for choosing our hotel. Your reservation details are as follows: \n\n" 
+    const emailText = "Thank you for choosing our hotel. Your reservation details are as follows: \n\n" 
     + "Reservation Named Under: " + guest.title +". "+ guest.fullName + "\n"
     + "Room Title: " + roomTitle + "\n"
     + "Room Type: " + reservationData.roomType + "\n"
@@ -53,7 +53,7 @@ const Payment = () => {
     + "Nos of Days: " + days + " Days\n"
     + "Total Amount: $" + parseFloat(days) * parseInt(roomPrice) + "\n"
     + "Check In/out Pin: " + pinGenerator() + "\n\n"
-    + "Thank you for booking in our hotel and have a great day!"]
+    + "Thank you for booking in our hotel and have a great day!";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
