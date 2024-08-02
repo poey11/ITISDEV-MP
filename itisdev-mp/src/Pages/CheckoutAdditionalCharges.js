@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
@@ -18,15 +18,31 @@ const CheckoutAdditionalCharges = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
-    const { reservationData, roomTitle, roomPrice, guest } = state || {};
+    const {reservationId } = state || {};
+    const [charges, setCharges] = useState([]);
+
+    useEffect(() => {
+        const fetchCharges = async () => {
+            try{
+            const chargeResponse = await fetch(`/api/charges/${reservationId}`);
+            const chargeResult = await chargeResponse.json();
+            setCharges(chargeResult);
+            } catch (error) {
+                console.error('Error fetching charges:', error);
+            }
+        };
+
+        fetchCharges();
+    },[]);
 
     // Calculate total additional charges
-    const totalCharges = additionalCharges.reduce((total, charge) => total + charge.amount, 0);
+    const totalCharges = charges.reduce((total, charge) => total + (charge.price * charge.quantity), 0);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        // Handle form submission logic here, e.g., send data to backend
-        navigate('/confirmation', { state: { reservationData, roomTitle, roomPrice, guest } });
+        alert('Payment confirmed!');        
+        console.log(charges)
+     
     };
 
     return (
@@ -37,18 +53,21 @@ const CheckoutAdditionalCharges = () => {
                     <thead>
                         <tr>
                             <th className="border-b px-4 py-2">Item</th>
-                            <th className="border-b px-4 py-2">Amount (PHP)</th>
+                            <th className="border-b px-4 py-2">Quantity</th>
+                            <th className="border-b px-4 py-2">Price (PHP)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {additionalCharges.map((charge, index) => (
+                        {charges.map((charge, index) => (
                             <tr key={index}>
-                                <td className="border-b px-4 py-2">{charge.item}</td>
-                                <td className="border-b px-4 py-2">{formatCurrency(charge.amount)}</td>
+                                <td className="border-b px-4 py-2">{charge.value}</td>
+                                <td className="border-b px-4 py-2">{charge.quantity}</td>
+                                <td className="border-b px-4 py-2">{formatCurrency(charge.price)}</td>
                             </tr>
                         ))}
                         <tr>
                             <td className="border-b px-4 py-2 font-bold">Total</td>
+                            <td className="border-b px-4 py-2"></td>
                             <td className="border-b px-4 py-2 font-bold">{formatCurrency(totalCharges)}</td>
                         </tr>
                     </tbody>

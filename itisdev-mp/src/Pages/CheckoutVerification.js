@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import { set } from "mongoose";
 
 
 const Modal = ({ isVisible, message, onClose }) => {
@@ -23,44 +23,43 @@ const Modal = ({ isVisible, message, onClose }) => {
 
 const CheckoutVerification = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { state } = location;
-    const { reservationData, roomTitle, roomPrice, guest } = state || {};
+
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-
+    const [reservationId, setReservationId] = useState('');
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const roomNumber  = document.getElementById('roomNumber').value;
+        const roomNumber = document.getElementById('roomNumber').value;
         const pin = document.getElementById('pin').value;
-
+        console.log(roomNumber)
+        console.log(pin)
         
-        const response = await fetch(`/api/reserve/${roomNumber}`, {
-            method: 'GET',
+        const response = await fetch(`/api/check/checkout`, {
+            method: 'POST',
+            body: JSON.stringify({ roomNumber, pin }),
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-
-        const result = await response.json();
-        console.log(response);
-        console.log(result);
         
+        const result = await response.json();
 
-        // if ( roomNumber === dummyData.roomNo  && pin === dummyData.pin) {
-        //      setModalMessage(`Verification successful for . Please insert your room key card.`);
-        //     setIsModalVisible(true);
-        //  } else {
-        //      setModalMessage("Sorry, we couldn't find your information. Please check your details and try again or contact the hotel staff for assistance.");
-        //      setIsModalVisible(true);
-        //  }
+        if(response.ok) {
+            setModalMessage(`Checkout successful for ${roomNumber}. Please insert your room key card.`);
+            setIsModalVisible(true);
+        } else {
+            setModalMessage("Sorry, we couldn't find your information. Please check your details and try again or contact the hotel staff for assistance.");
+            setIsModalVisible(true);
+        }
+        console.log(result);
+        setReservationId(result);
     };
 
     const handleCloseModal = () => {
         setIsModalVisible(false);
         if (modalMessage.includes("successful")) {
-            navigate('/CheckoutAdditionalCharges', { state: { reservationData, roomTitle, roomPrice, guest } });
+            navigate('/CheckoutAdditionalCharges',{state:{reservationId}} );
         } else {
             // Clear form fields
             document.getElementById('roomNumber').value = '';

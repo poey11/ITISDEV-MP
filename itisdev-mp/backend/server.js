@@ -4,7 +4,8 @@ const app = express();
 const reservationRouter = require('./routes/reservationRouter');
 const guestRouter = require('./routes/guestRouter');
 const emailRouter = require('./routes/emailRouter');
-const checkInRouter = require('./routes/checkInRouter');
+const checkRouter = require('./routes/checkRouter');
+const chargesRouter = require('./routes/chargesRouter');
 const { default: mongoose } = require('mongoose');
 
 
@@ -19,7 +20,8 @@ app.use((req, res, next) => {
 app.use('/api/reserve', reservationRouter);
 app.use('/api/record', guestRouter);
 app.use('/api/send-email', emailRouter);
-app.use('/api/checkin', checkInRouter);
+app.use('/api/check', checkRouter);
+app.use('/api/charges', chargesRouter);
 
 
 //connect to db

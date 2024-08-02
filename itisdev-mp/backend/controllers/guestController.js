@@ -1,5 +1,4 @@
 const Guests = require('../models/GuestModel'); 
-const mongoose = require('mongoose');
 
 const recordGuest = async(req, res) => {
     try {                           

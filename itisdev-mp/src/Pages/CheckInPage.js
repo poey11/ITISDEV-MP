@@ -11,7 +11,7 @@ function CheckInPage() {
         e.preventDefault();
 
         try {
-            const response = await fetch('/api/checkin', {
+            const response = await fetch('/api/check', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

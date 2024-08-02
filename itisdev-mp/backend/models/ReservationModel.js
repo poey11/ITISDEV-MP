@@ -31,7 +31,10 @@ const reservationSchema = new mongoose.Schema({
     },
     checkInTime: {  
         type: Date
-    }
+    },
+    checkOutTime: {
+        type: Date
+    },
 }, {timestamps: true});
 
 module.exports = mongoose.model('Reservation', reservationSchema, 'Reservations');

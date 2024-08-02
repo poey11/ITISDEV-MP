@@ -118,6 +118,22 @@ const Payment = () => {
                  'Content-Type': 'application/json',
              },
          });
+         
+
+         const chargeResponse = await fetch('/api/charges', {
+            method: 'POST',
+            body: JSON.stringify({ reservationId: reservationResult._id }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const chargeResult = await chargeResponse.json();
+        if (!chargeResponse.ok) {
+            alert(chargeResult.error);
+            return;
+        }
+        console.log(chargeResult);
+
          const guestResult = await guestResponse.json();
          if (!guestResponse.ok) {
              alert(guestResult.error);
@@ -141,6 +157,9 @@ const Payment = () => {
             alert(emailResult.error);
             return;
         }
+
+       
+
         alert('Reservation Successful. Reservation details sent to email!');
         navigate('/');
     };
