@@ -2,14 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
-// Dummy data for verification
-const dummyData = {
-    firstName: "Justine",
-    lastName: "Rosete",
-    pin: "123456"
-};
 
-// Modal Component
 const Modal = ({ isVisible, message, onClose }) => {
     if (!isVisible) return null;
 
@@ -37,20 +30,31 @@ const CheckoutVerification = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
+        const roomNumber  = document.getElementById('roomNumber').value;
         const pin = document.getElementById('pin').value;
 
-        if (firstName === dummyData.firstName && lastName === dummyData.lastName && pin === dummyData.pin) {
-            setModalMessage(`Verification successful for ${firstName} ${lastName}. Please insert your room key card.`);
-            setIsModalVisible(true);
-        } else {
-            setModalMessage("Sorry, we couldn't find your information. Please check your details and try again or contact the hotel staff for assistance.");
-            setIsModalVisible(true);
-        }
+        
+        const response = await fetch(`/api/reserve/${roomNumber}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const result = await response.json();
+        console.log(response);
+        console.log(result);
+        
+
+        // if ( roomNumber === dummyData.roomNo  && pin === dummyData.pin) {
+        //      setModalMessage(`Verification successful for . Please insert your room key card.`);
+        //     setIsModalVisible(true);
+        //  } else {
+        //      setModalMessage("Sorry, we couldn't find your information. Please check your details and try again or contact the hotel staff for assistance.");
+        //      setIsModalVisible(true);
+        //  }
     };
 
     const handleCloseModal = () => {
@@ -59,8 +63,7 @@ const CheckoutVerification = () => {
             navigate('/CheckoutAdditionalCharges', { state: { reservationData, roomTitle, roomPrice, guest } });
         } else {
             // Clear form fields
-            document.getElementById('firstName').value = '';
-            document.getElementById('lastName').value = '';
+            document.getElementById('roomNumber').value = '';
             document.getElementById('pin').value = '';
         }
     };
@@ -69,22 +72,15 @@ const CheckoutVerification = () => {
         <div className="flex justify-center">
             <form className="w-1/2" onSubmit={handleSubmit}>
                 <h2 className="text-2xl text-center">Checkout Verification</h2>
-                <label htmlFor="firstName">First Name</label>
+                <label htmlFor="roomNumber">Room Nos</label>
                 <input
                     type="text"
-                    name="firstName"
-                    id="firstName"
+                    name="roomNumber"
+                    id="roomNumber"
                     className="w-full bg-gray-300 pl-1"
-                    placeholder="First Name"
+                    placeholder="Room Nos"
                 />
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                    type="text"
-                    name="lastName"
-                    id="lastName"
-                    className="w-full bg-gray-300 pl-1"
-                    placeholder="Last Name"
-                />
+               
                 <label htmlFor="pin">PIN</label>
                 <input
                     type="password"
@@ -92,6 +88,7 @@ const CheckoutVerification = () => {
                     id="pin"
                     className="w-full bg-gray-300 pl-1"
                     placeholder="PIN"
+                    
                 />
                 <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
                     Confirm
