@@ -67,7 +67,6 @@ const Payment = () => {
                     'Content-Type': 'application/json',
                 },
             });
-            const roomDetails = await getRoomDetails.json();
     
             if (getRoomDetails.status === 404) { // if the status is 404 then it means the room is available
                 roomNumber = roomRandom
@@ -132,7 +131,6 @@ const Payment = () => {
             alert(chargeResult.error);
             return;
         }
-        console.log(chargeResult);
 
          const guestResult = await guestResponse.json();
          if (!guestResponse.ok) {

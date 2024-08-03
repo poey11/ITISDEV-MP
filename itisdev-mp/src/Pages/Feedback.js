@@ -16,8 +16,7 @@ const Feedback = () => {
       {question: 'How was our service?', answer: e.target.feedbackRatingA.value},
       {question: 'How was our employees?', answer: e.target.feedbackRatingB.value}
     ]
-    console.log(reservationId);
-    console.log(feedbackData);
+
   
     const feedbackResponse = await fetch('/api/feedback', {
       method: 'POST',
@@ -32,9 +31,9 @@ const Feedback = () => {
       console.error('Error submitting feedback:', feedbackResult);
       return;
     }
-
-    console.log(feedbackResult);
-    console.log(feedbackData);
+    alert('Feedback submitted!!');
+    navigate('/');
+ 
     // You can handle the feedback submission here, e.g., send it to the server
   };
 

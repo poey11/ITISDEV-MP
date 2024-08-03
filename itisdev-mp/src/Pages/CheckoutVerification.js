@@ -31,8 +31,6 @@ const CheckoutVerification = () => {
         e.preventDefault();
         const roomNumber = document.getElementById('roomNumber').value;
         const pin = document.getElementById('pin').value;
-        console.log(roomNumber)
-        console.log(pin)
         
         const response = await fetch(`/api/check/checkout`, {
             method: 'POST',
@@ -51,7 +49,6 @@ const CheckoutVerification = () => {
             setModalMessage("Sorry, we couldn't find your information. Please check your details and try again or contact the hotel staff for assistance.");
             setIsModalVisible(true);
         }
-        console.log(result);
         setReservationId(result);
     };
 

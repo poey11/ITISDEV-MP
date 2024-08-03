@@ -27,7 +27,7 @@ const CheckoutAdditionalCharges = () => {
         };
 
         fetchCharges();
-    },[]);
+    },[]);// eslint-disable-line react-hooks/exhaustive-deps
 
     // Calculate total additional charges
     const totalCharges = charges.reduce((total, charge) => total + (charge.price * charge.quantity), 0);
@@ -35,7 +35,6 @@ const CheckoutAdditionalCharges = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         alert('Payment confirmed!');        
-        console.log(charges)
         navigate('/feedback', { state: {reservationId}  });
     };
 
