@@ -18,9 +18,17 @@ const CheckoutAdditionalCharges = () => {
     useEffect(() => {
         const fetchCharges = async () => {
             try{
-            const chargeResponse = await fetch(`/api/charges/${reservationId}`);
-            const chargeResult = await chargeResponse.json();
-            setCharges(chargeResult);
+                const chargeResponse = await fetch(`/api/charges/${reservationId}`,
+                {  
+                     method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                }
+                );
+                const chargeResult = await chargeResponse.json();
+                setCharges(chargeResult);
+                if(chargeResponse.status === 404){
+                    navigate('/feedback', { state: {reservationId}  });
+                }
             } catch (error) {
                 console.error('Error fetching charges:', error);
             }
