@@ -6,6 +6,7 @@ const guestRouter = require('./routes/guestRouter');
 const emailRouter = require('./routes/emailRouter');
 const checkRouter = require('./routes/checkRouter');
 const chargesRouter = require('./routes/chargesRouter');
+const feedbackRouter = require('./routes/feedbackRouter');
 const { default: mongoose } = require('mongoose');
 
 
@@ -22,7 +23,7 @@ app.use('/api/record', guestRouter);
 app.use('/api/send-email', emailRouter);
 app.use('/api/check', checkRouter);
 app.use('/api/charges', chargesRouter);
-
+app.use('/api/feedback', feedbackRouter);
 
 //connect to db
 mongoose.connect(process.env.URL)

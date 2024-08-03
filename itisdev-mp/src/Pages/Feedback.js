@@ -1,12 +1,39 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+
 
 const Feedback = () => {
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { state } = location;
+  const {reservationId } = state || {};
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const feedbackData = {
-      serviceRating: document.getElementById('serviceRating').value,
-      employeeRating: document.getElementById('employeeRating').value,
-    };
+    const feedbackData = [
+      {question: 'How was our service?', answer: e.target.feedbackRatingA.value},
+      {question: 'How was our employees?', answer: e.target.feedbackRatingB.value}
+    ]
+    console.log(reservationId);
+    console.log(feedbackData);
+  
+    const feedbackResponse = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({reservationId,  feedbackData})
+    });
+
+    const feedbackResult = await feedbackResponse.json();
+    if(!feedbackResponse.ok) {
+      console.error('Error submitting feedback:', feedbackResult);
+      return;
+    }
+
+    console.log(feedbackResult);
     console.log(feedbackData);
     // You can handle the feedback submission here, e.g., send it to the server
   };
@@ -18,14 +45,14 @@ const Feedback = () => {
       <div className="flex justify-center">
         <form className="w-1/2" onSubmit={handleSubmit}>
           <label name="feedbackQuestion" id= "feedbackQuestion">How was our service?</label>
-          <select name="feedbackRating" id="feedbackRating" className="w-full bg-gray-300 pl-1 mb-4">
+          <select name="feedbackRating" id="feedbackRatingA" className="w-full bg-gray-300 pl-1 mb-4">
             <option value="Happy">Happy</option>
             <option value="Moderate">Moderate</option>
             <option value="Sad">Sad</option>
           </select>
           
           <label name="feedbackQuestion" id= "feedbackQuestion">How was our employees?</label>
-          <select name="feedbackRating" id="feedbackRating" className="w-full bg-gray-300 pl-1 mb-4">
+          <select name="feedbackRating" id="feedbackRatingB" className="w-full bg-gray-300 pl-1 mb-4">
             <option value="Happy">Happy</option>
             <option value="Moderate">Moderate</option>
             <option value="Sad">Sad</option>

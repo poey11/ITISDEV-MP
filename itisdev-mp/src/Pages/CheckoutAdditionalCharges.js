@@ -2,12 +2,6 @@ import React, { useState,useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 
-// Dummy data for additional charges
-const additionalCharges = [
-    { item: "Additional Bed", amount: 1000.00 },  
-    { item: "Water (Snack Bar)", amount: 50.00 },              
-    { item: "Soft Drink (Snack Bar)", amount: 75.00 } 
-];
 
 // Function to format number with commas and PHP symbol
 const formatCurrency = (amount) => {
@@ -42,7 +36,7 @@ const CheckoutAdditionalCharges = () => {
         e.preventDefault();
         alert('Payment confirmed!');        
         console.log(charges)
-     
+        navigate('/feedback', { state: {reservationId}  });
     };
 
     return (

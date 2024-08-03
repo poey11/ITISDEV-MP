@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import { set } from "mongoose";
 
 
 const Modal = ({ isVisible, message, onClose }) => {
