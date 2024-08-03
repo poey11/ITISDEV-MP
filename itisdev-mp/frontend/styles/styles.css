@@ -453,5 +453,10 @@ button {
     left:500px;
 }
 
-
+.custom-btn {
+    background-color: #994a1d; /* Default state */
+}
+.custom-btn:hover {
+    background-color: #C87941; /* Hover state */
+}
 
