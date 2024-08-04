@@ -9,7 +9,6 @@ const chargesRouter = require('./routes/chargesRouter');
 const feedbackRouter = require('./routes/feedbackRouter');
 const { default: mongoose } = require('mongoose');
 
-
 //middleware
 app.use(express.json());
 app.use((req, res, next) => {
