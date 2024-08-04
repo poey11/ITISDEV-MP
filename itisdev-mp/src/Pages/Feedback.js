@@ -9,7 +9,7 @@ const Feedback = () => {
   const location = useLocation();
   const { state } = location;
   const { reservationId } = state || {};
-  const reservationid2 = '66af5b8b46fa33651bcba710';
+ // const reservationId = '66af845ada9ec1e3f8714867';
 
   // State to track selected values
   const [service, setService] = useState('');
@@ -25,16 +25,14 @@ const Feedback = () => {
       recommendation
     };
 
-    console.log(reservationid2)
-    console.log(feedbackData);
-
+   
     try {
       const feedbackResponse = await fetch('/api/feedback', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ reservationid2, feedbackData })
+        body: JSON.stringify({ reservationId, feedbackData })
       });
 
       if (!feedbackResponse.ok) {
@@ -43,7 +41,7 @@ const Feedback = () => {
 
       console.log(feedbackResponse)
       alert('Feedback submitted!');
-   //   navigate('/');
+      navigate('/');
     } catch (error) {
       console.error('Error submitting feedback:', error);
     }
