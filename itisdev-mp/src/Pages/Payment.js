@@ -1,12 +1,21 @@
-import { useNavigate } from "react-router-dom"; 
-import { useLocation } from 'react-router-dom';
-
+import { useNavigate, useLocation } from 'react-router-dom';
+import NavBar from '../Components/NewNavBar';
+import Footer from '../Components/Footer';
 
 const Payment = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location;
-    const { reservationData, roomTitle, roomPrice,guest } = state || {};
+    const {reservationData, guestData } = state || {};
+    const getNumberOfDays = (checkInDate, checkOutDate) => {
+        const checkIn = new Date(checkInDate);
+        const checkOut = new Date(checkOutDate);
+        const timeDifference = checkOut.getTime() - checkIn.getTime();
+        const daysDifference = timeDifference / (1000 * 3600 * 24); // Convert time difference from milliseconds to days
+        return daysDifference;
+    };
+    const numberOfDays = getNumberOfDays(reservationData.checkIn, reservationData.checkOut)
+
 
     function randomRoomNumber(roomType){
         let roomNumber='';
@@ -36,22 +45,15 @@ const Payment = () => {
         return pin;
     }
 
-    const getNumberOfDays = (checkInDate, checkOutDate) => {
-        const checkIn = new Date(checkInDate);
-        const checkOut = new Date(checkOutDate);
-        const timeDifference = checkOut.getTime() - checkIn.getTime();
-        const daysDifference = timeDifference / (1000 * 3600 * 24); // Convert time difference from milliseconds to days
-        return daysDifference;
-    };
-    const days = getNumberOfDays(reservationData.checkIn, reservationData.checkOut);
+  
     const emailText = "Thank you for choosing our hotel. Your reservation details are as follows: \n\n" 
-    + "Reservation Named Under: " + guest.title +". "+ guest.fullName + "\n"
-    + "Room Title: " + roomTitle + "\n"
+    + "Reservation Named Under: " + guestData.FullName+"\n"
+    + "Room Title: " + reservationData.roomTitle + "\n"
     + "Room Type: " + reservationData.roomType + "\n"
     + "Check In: " + reservationData.checkIn + "\n"
     + "Check Out: " + reservationData.checkOut + "\n"
-    + "Nos of Days: " + days + " Days\n"
-    + "Total Amount: $" + parseFloat(days) * parseInt(roomPrice) + "\n"
+    + "Nos of Days: " + numberOfDays + " Days\n"
+    + "Total Amount: $" +reservationData.roomPrice * numberOfDays+ "\n"
     + "Check In/out Pin: " + pinGenerator() + "\n\n"
     + "Thank you for booking in our hotel and have a great day!";
 
@@ -80,7 +82,7 @@ const Payment = () => {
             }
         }
         const reservation ={
-            roomTitle: roomTitle,
+            roomTitle: reservationData.roomTitle,
             roomType: reservationData.roomType,
             checkIn: reservationData.checkIn,
             checkOut: reservationData.checkOut,
@@ -102,12 +104,12 @@ const Payment = () => {
             return;
         }
         const guestInfo = {
-             title: guest.title,
-             fullName: guest.fullName,
-             gender: guest.gender,   
-             email: guest.email,
-             phone: guest.phone,
-             address: guest.address,
+             title: guestData.title,
+             fullName: guestData.fullName,
+             gender: guestData.gender,   
+             email: guestData.email,
+             phone: guestData.phone,
+             address: guestData.address,
              reservationId: reservationResult._id
         };
          const guestResponse = await fetch('/api/record', {
@@ -139,7 +141,7 @@ const Payment = () => {
          }
             
         const email = {
-            email: guest.email,
+            email: guestData.email,
             subject: 'Hotel Reservation Details',
             text: emailText,
         };
@@ -156,35 +158,58 @@ const Payment = () => {
             return;
         }
 
-       
 
-        alert('Reservation Successful. Reservation details sent to email!');
+        alert('Please insert, swipe, or tap your card to pay!');
         navigate('/');
     };
-
+    
     
     return (
-        <div className="flex justify-center">
-            <form className="w-1/2">
-                <h1 className="text-2xl text-center">Payment</h1>
-                <h1 className="text-2xl text-center">Total: <b>${parseFloat(days) * parseInt(roomPrice)}</b> </h1>
-                <h1 className="text-1xl">Items: </h1>
-                <h1 className=" text-gray-600"><b>{roomTitle} - ${roomPrice} x {days} Days</b></h1>
-                <label htmlFor="CardNumber">Card Number</label>
-                <input type="text" name="CardNumber" id="CardNumber" className="w-full bg-gray-300 pl-1" placeholder="4123 2323 0982 4520" />
-                <label htmlFor="nameOnCard">Card Holder Name</label>
-                <input type="text" name="nameOnCard" id="nameOnCard" className="w-full bg-gray-300 pl-1" placeholder="Juan Dela Cruz" />
-                <label htmlFor="expiryDate">Expiry Date</label>
-                <input type="text" name="expiryDate" id="expiryDate" className="w-full bg-gray-300 pl-1" placeholder="MM/YY" />
-                <label htmlFor="cvv">CVV/CVV2</label>
-                <input type="text" name="cvv" id="cvv" className="w-full bg-gray-300 pl-1" placeholder="CVV" />
-                <label htmlFor="billingAddress">Billing Address</label>
-                <input type="text" name="billingAddress" id="billingAddress" className="w-full bg-gray-300 pl-1 mb-5" placeholder="Billing Address" />
-                <button className="w-36 bg-red-500 hover:bg-red-700   text-white font-bold py-2 px-4 rounded" onClick={() => navigate('/')}>Back</button>
-                <button className="w-36 bg-blue-500 hover:bg-blue-700 ml-3.5 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit}>Pay</button>
+        <body className="text-gray-300 min-h-screen flex flex-col justify-between bg-[#431412]">
+            <NavBar />
+            <main className="flex-grow flex items-center justify-center p-8">
+                <div className="pay-container bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h2 className="pay-title text-3xl font-semibold text-center mb-6">Payment</h2>
+                    <div className="pay space-y-4">
+                        <div className="pay-details">
+                            <span className="font-semibold">Room Type: {reservationData.roomTitle} </span> 
+                        </div>
+                        <div className="pay-details">
+                            <span className="font-semibold">Start Date: {reservationData.checkIn}</span> 
+                        </div>
+                        <div className="pay-details">
+                            <span className="font-semibold">End Date: {reservationData.checkOut}</span> 
+                        </div>
+                        <div className="pay-details">
+                            <span className="font-semibold">Nos of Days: {numberOfDays}</span> 
+                        </div>
+                       
+                        <div className="pay-total text-xl font-bold">
+                            <span className="font-semibold">Total Amount: ₱{reservationData.roomPrice} x {numberOfDays} day(s) = ₱{reservationData.roomPrice * numberOfDays} </span> 
+                        </div>
+                        <div className="pay-total text-xl font-bold">
+                            <span className="font-semibold">Mode of Payment:</span> 
+                     </div>
+                    </div>
 
-            </form>
-        </div>
+                  
+                    <div className="pay-dropdown mt-6">
+                        <select  className="pay-dropbtn rounded-sm ">
+                            <option value="Credit Card">Credit/Debit Card</option>
+                            <option value="PayPal">PayPal</option>
+                            <option value="GCash">GCash</option>
+                        </select>
+                       
+                    </div>
+                    <div>
+                        <button className="pay-button mt-6" onClick={handleSubmit}>Pay Now</button>
+                    </div>
+                   
+                    
+                </div>
+            </main>
+            <Footer />
+        </body>
       );
 }
  

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-
+import NavBar from '../Components/NewNavBar';
+import Footer from '../Components/Footer';
 
 const Modal = ({ isVisible, message, onClose }) => {
     if (!isVisible) return null;
@@ -63,38 +64,45 @@ const CheckoutVerification = () => {
         }
     };
 
+    const testing = () => {// tangalin mo to justine  pang redirect ko lng 
+         navigate('/checkoutWCharges');
+    }
+
     return (
-        <div className="flex justify-center">
-            <form className="w-1/2" onSubmit={handleSubmit}>
-                <h2 className="text-2xl text-center">Checkout Verification</h2>
-                <label htmlFor="roomNumber">Room Nos</label>
-                <input
-                    type="text"
-                    name="roomNumber"
-                    id="roomNumber"
-                    className="w-full bg-gray-300 pl-1"
-                    placeholder="Room Nos"
-                />
-               
-                <label htmlFor="pin">PIN</label>
-                <input
-                    type="password"
-                    name="pin"
-                    id="pin"
-                    className="w-full bg-gray-300 pl-1"
-                    placeholder="PIN"
-                    
-                />
-                <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
-                    Confirm
-                </button>
-            </form>
-            <Modal
-                isVisible={isModalVisible}
-                message={modalMessage}
-                onClose={handleCloseModal}
-            />
-        </div>
+        <body class="text-gray-300 min-h-screen flex flex-col justify-between">
+            <NavBar/>
+            <main class="flex-grow flex flex-col items-center justify-center text-center">
+                <div class="container relative flex flex-col items-center justify-center text-center p-8">
+                    <div id="check-out-app">
+                        <h2 class="text-4xl font-bold mb-4 text-white">Check Out</h2>
+                        <form id="checkout-form" class="space-y-4" onSubmit={handleSubmit}>
+                        
+                            <div>
+                                <label class="block text-lg">Room Number</label>
+                                <input
+                                    type="text"
+                                    id="last-name"
+                                    required
+                                    class="w-full p-2 rounded border border-gray-300 text-black"
+                                />
+                            </div>
+                            <div>
+                                <label class="block text-lg">Pin Code:</label>
+                                <input
+                                    type="password"
+                                    id="pin-code"
+                                    required
+                                    class="w-full p-2 rounded border border-gray-300 text-black"
+                                />
+                            </div>
+                            <button id="submit-btn" type="submit" class="bg-[#994a1d] text-white font-bold py-2 px-4 rounded hover:bg-[#C87941]" onClick={testing}>Check Out</button>
+                        </form>
+                        <p class="mt-4 text-lg"></p>
+                    </div>
+                </div>
+            </main>
+            <Footer/>
+        </body>
     );
 };
 
