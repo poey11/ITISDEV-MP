@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Information</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style/styles.css" rel="stylesheet"> 
+</head>
+<body class="text-gray-300 min-h-screen flex flex-col justify-between">
+    <header id="navbar" class="p-4 shadow-lg">
+        <nav class="flex justify-center space-x-8">
+            <a href="index.html" class="text-gray-300 hover:text-blue-600">Home</a>
+            <a href="#" id="about-link" class="text-gray-300 hover:text-blue-600">About Us</a>
+            <a href="#" id="contact-link" class="text-gray-300 hover:text-blue-600">Contact Us</a>
+            <a href="profile.html" class="text-gray-300 hover:text-blue-600">Profile</a>
+        </nav>
+    </header>
+    <main class="flex-grow">
+        <div class="flex items-center justify-center h-full">
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+                <h2 class="text-xl font-semibold mb-5 text-center text-black">Guest Information</h2>
+                <form action="index.html">
+                    <div class="mb-4">
+                        <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title</label>
+                        <select id="title" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option>Mr</option>
+                            <option>Ms</option>
+                            <option>Mrs</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="firstName" class="block text-gray-700 text-sm font-bold mb-2">First Name</label>
+                        <input type="text" id="firstName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="First Name">
+                    </div>
+                    <div class="mb-4">
+                        <label for="lastName" class="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
+                        <input type="text" id="lastName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Last Name">
+                    </div>
+                    <div class="mb-4">
+                        <label for="gender" class="block text-gray-700 text-sm font-bold mb-2">Gender</label>
+                        <select id="gender" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                        <input type="email" id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email">
+                    </div>
+                    <div class="mb-4">
+                        <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Phone</label>
+                        <input type="tel" id="phone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Phone">
+                    </div>
+                    <div class="mb-4">
+                        <label for="address" class="block text-gray-700 text-sm font-bold mb-2">Address</label>
+                        <input type="text" id="address" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Address">
+                    </div>
+                    <div class="flex items-center justify-center h-full">
+                        <button class="custom-btn text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            Proceed to Payment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-[#431412] text-center p-4">
+        <p style="color: #f1e9e1;">&copy; 2024 Hotel ni Malcolm </p>
+    </footer>
+    <script>
+        document.getElementById('about-link').addEventListener('click', function() {
+            document.getElementById('about-popup').classList.remove('hidden');
+        });
+
+        document.getElementById('contact-link').addEventListener('click', function() {
+            document.getElementById('contact-popup').classList.remove('hidden');
+        });
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).classList.add('hidden');
+        }
+    </script>
+
+<!-- About Us -->
+<div id="about-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="popup-container bg-white p-6 rounded-lg text-black">
+        <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('about-popup')">X</button>
+        <h2 style="font-weight: bolder;" class="text-2xl mb-4">About Us</h2>
+        <p>Welcome to Hotel ni Malcolm, where comfort meets luxury in the heart of Manila. Our hotel offers a blend of modern amenities and traditional hospitality to make your stay unforgettable. Whether you're here for business or leisure, our dedicated team is committed to providing exceptional service and ensuring a memorable experience. Explore the vibrant city of Manila while enjoying the tranquility of our elegant accommodations.</p>
+    </div>
+</div>
+
+<!-- Contact Us -->
+<div id="contact-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="popup-container bg-white p-6 rounded-lg text-black">
+        <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('contact-popup')">X</button>
+        <h2 style="font-weight: bolder;" class="text-2xl mb-4">Contact Us</h2>
+        <p>For inquiries or reservations, please reach out to us:</p>
+        <p><strong>Address:</strong> Hotel ni Malcolm, Manila, PH</p>
+        <p><strong>Phone:</strong> +63 9120328432</p>
+        <p><strong>Email:</strong> <a href="mailto:info@hotel.com" class="text-blue-500">info@yourhotel.com</a></p>
+    </div>
+</div>
+
+</body>
+</html>
+
