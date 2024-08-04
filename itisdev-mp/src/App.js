@@ -9,6 +9,7 @@ import StartingPage from './Pages/StartingPage.js';
 import CheckoutVerification from './Pages/CheckoutVerification.js';
 import CheckoutAdditionalCharges from './Pages/CheckoutAdditionalCharges.js';
 import CheckInPage from './Pages/CheckInPage';
+import CheckInSuccessPage from './Pages/CheckInSuccessPage';
 import MainMenu from './Pages/MainMenu.js';
 import {
   BrowserRouter as Router,
@@ -31,6 +32,7 @@ function App() {
             <Route path='/checkout' Component={CheckoutVerification} />
             <Route path='/checkoutWCharges' Component={CheckoutAdditionalCharges} />
             <Route path='/checkin' Component={CheckInPage } />
+            <Route path='/checkin-success' Component={CheckInSuccessPage } />
           </Routes>
         </Router>
     </div>
