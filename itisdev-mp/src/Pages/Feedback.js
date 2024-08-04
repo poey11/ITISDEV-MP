@@ -75,7 +75,7 @@ const Feedback = () => {
     const filledImage = `/images/filled-${imageName}.png`;
     const unfilledImage = `/images/unfilled-${imageName}.png`;
 
-    // Return filled image if this option is selected, otherwise unfilled
+    
     return optionValue === selectedValue ? filledImage : unfilledImage;
   };
 
