@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Out</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style/styles.css" rel="stylesheet"> 
+</head>
+<body class="text-gray-300 min-h-screen flex flex-col justify-between">
+    <header id="navbar" class="p-4 shadow-lg">
+        <nav class="flex justify-center space-x-8">
+            <a href="index.html" class="text-gray-300 hover:text-[#D3836]">Home</a>
+            <a href="#" id="about-link" class="text-gray-300 hover:text-[#D3836]">About Us</a>
+            <a href="#" id="contact-link" class="text-gray-300 hover:text-[#D3836]">Contact Us</a>
+            <a href="#" class="text-gray-300 hover:text-[#D3836]">Profile</a>
+        </nav>
+    </header>
+
+    <main class="flex-grow flex flex-col items-center justify-center text-center">
+        <div class="container relative flex flex-col items-center justify-center text-center p-8">
+            <div id="check-out-app">
+                <h2 class="text-4xl font-bold mb-4 text-white">Check Out</h2>
+                <form id="checkout-form" class="space-y-4">
+                    <div>
+                        <label class="block text-lg">First Name:</label>
+                        <input
+                            type="text"
+                            id="first-name"
+                            required
+                            class="w-full p-2 rounded border border-gray-300 text-black"
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-lg">Last Name:</label>
+                        <input
+                            type="text"
+                            id="last-name"
+                            required
+                            class="w-full p-2 rounded border border-gray-300 text-black"
+                        />
+                    </div>
+                    <div>
+                        <label class="block text-lg">Pin Code:</label>
+                        <input
+                            type="text"
+                            id="pin-code"
+                            required
+                            class="w-full p-2 rounded border border-gray-300 text-black"
+                        />
+                    </div>
+                    <button id="submit-btn" type="submit" class="bg-[#994a1d] text-white font-bold py-2 px-4 rounded hover:bg-[#C87941]">Check Out</button>
+                </form>
+                <p class="mt-4 text-lg"></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#431412] text-center p-4">
+        <p style="color: #f1e9e1;">&copy; 2024 Hotel ni Malcolm</p>
+    </footer>
+
+    <div id="checkout-popup" class="popup">
+        <div class="bg-white p-8 rounded shadow-lg text-center">
+            <p id="popup-message" class="text-black mb-4">Verification Successful for Justine Rosete. Please insert room card.</p>
+            <button id= "ok-btn" onclick="closePopup()" class="bg-[#994a1d] text-white font-bold py-2 px-4 rounded hover:bg-[#C87941]">OK</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('about-link').addEventListener('click', function() {
+            document.getElementById('about-popup').classList.remove('hidden');
+        });
+
+        document.getElementById('contact-link').addEventListener('click', function() {
+            document.getElementById('contact-popup').classList.remove('hidden');
+        });
+
+        function closePopup() {
+            document.getElementById('checkout-popup').classList.remove('show');
+        }
+
+        document.getElementById('checkout-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const message = `Verification Successful for ${firstName} ${lastName}. Please insert room card.`;
+            document.getElementById('popup-message').textContent = message;
+            document.getElementById('checkout-popup').classList.add('show');
+        });
+
+        document.getElementById('ok-btn').addEventListener('click', function() {
+            // Redirect to additionalcharges.html
+            window.location.href = 'additionalcharges.html';
+        });
+    </script>
+
+    <!-- About Us -->
+    <div id="about-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="popup-container">
+            <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('about-popup')">X</button>
+            <h2 style="font-weight: bolder;" class="text-2xl mb-4">About Us</h2>
+            <p>Welcome to Hotel ni Malcolm, where comfort meets luxury in the heart of Manila. Our hotel offers a blend of modern amenities and traditional hospitality to make your stay unforgettable. Whether you're here for business or leisure, our dedicated team is committed to providing exceptional service and ensuring a memorable experience. Explore the vibrant city of Manila while enjoying the tranquility of our elegant accommodations.</p>
+        </div>
+    </div>
+
+    <!-- Contact Us -->
+    <div id="contact-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="popup-container">
+            <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('contact-popup')">X</button>
+            <h2 style="font-weight: bolder;" class="text-2xl mb-4">Contact Us</h2>
+            <p>For inquiries or reservations, please reach out to us:</p>
+            <p><strong>Address:</strong> Hotel ni Malcolm, Manila, PH</p>
+            <p><strong>Phone:</strong> +63 9120328432</p>
+            <p><strong>Email:</strong> <a href="mailto:info@hotel.com">info@yourhotel.com</a></p>         
+        </div>
+    </div>
+</body>
+</html>

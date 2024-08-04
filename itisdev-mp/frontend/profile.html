@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style/styles.css" rel="stylesheet"> 
+</head>
+<body class="text-gray-300 min-h-screen flex flex-col justify-between">
+    <header id="navbar" class="p-4 shadow-lg">
+        <nav class="flex justify-center space-x-8">
+            <a href="index.html" class="text-gray-300 hover:text-[#D3836]">Home</a>
+            <a href="#" id="about-link" class="text-gray-300 hover:text-[#D3836]">About Us</a>
+            <a href="#" id="contact-link" class="text-gray-300 hover:text-[#D3836]">Contact Us</a>
+            <a href="profile.html" class="text-gray-300 hover:text-[#D3836]">Profile</a>
+        </nav>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-8">
+        <div class="max-w-md w-full bg-gray-800 rounded-lg shadow-md p-6">
+            <div class="flex flex-col items-center">
+                <img src="https://via.placeholder.com/150" alt="Profile Picture" class="w-32 h-32 rounded-full shadow-lg mb-4">
+                <h1 class="text-2xl font-semibold mb-2" id="name-display">John Doe</h1>
+                <p class="text-gray-400 mb-4" id="role-display">Guest</p>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-gray-400 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.003 9.25C2 5.02 6.48 2 10 2c3.52 0 8 .89 7.997 7.25C18 14.89 13.52 18 10 18c-3.52 0-8-.89-7.997-8.75zM10 4a6 6 0 0 0 0 12c3.313 0 6-2.688 6-6S13.313 4 10 4z"/><path d="M9 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0 2a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2H9zm0 4a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2H9z"/></svg>
+                        <span id="location-display">Location: New York, USA</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-gray-400 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M15.207 9.5H4.793a.5.5 0 0 1 0-1h10.414a.5.5 0 0 1 0 1z"/><path d="M10 3a2 2 0 0 1 2 2v3H8V5a2 2 0 0 1 2-2zm-1 3V5a1 1 0 0 1 1-1v3H9zm-2.5 1A.5.5 0 0 1 6 6h4.793a.5.5 0 1 1 0 1H6zm8.5.5H8.793a.5.5 0 1 1 0-1h4.793a.5.5 0 0 1 0 1z"/><path d="M16.793 7.5H12.5a.5.5 0 1 1 0-1h4.293a.5.5 0 0 1 0 1z"/><path d="M8.5 17a.5.5 0 0 1-.5-.5V9h1v7h6V9h1v7.5a.5.5 0 0 1-.5.5h-7z"/></svg>
+                        <span id="email-display">Email: john.doe@example.com</span>
+                    </div>
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 text-gray-400 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 2a6 6 0 1 1-6 6 6 6 0 0 1 6-6zm0 1a5 5 0 1 0 5 5 5 5 0 0 0-5-5z"/><path d="M10 11a6.978 6.978 0 0 0-4.993 2.1c.668.525 1.442.9 2.293.9a3.993 3.993 0 0 0 2.7-1.127A3.993 3.993 0 0 0 14 14a3.993 3.993 0 0 0 2.293-.9 6.978 6.978 0 0 0-4.993-2.1zm-3.292 3a5.99 5.99 0 0 0 6.584 0 5.99 5.99 0 0 0-6.584 0zM10 13a2.994 2.994 0 0 1-2.121-.879 4.978 4.978 0 0 1 4.242 0A2.994 2.994 0 0 1 10 13z"/></svg>
+                        <span id="phone-display">Phone: (123) 456-7890</span>
+                    </div>
+                </div>
+                <button onclick="editProfile()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
+            </div>
+
+            <!-- Edit Form (Hidden initially) -->
+            <form id="edit-form" class="hidden mt-6 space-y-4">
+                <input type="text" id="name-input" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Name">
+                <input type="text" id="role-input" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Role">
+                <input type="text" id="location-input" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Location">
+                <input type="email" id="email-input" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Email">
+                <input type="tel" id="phone-input" class="w-full p-2 rounded bg-gray-700 text-white" placeholder="Phone">
+                <button type="button" onclick="saveProfile()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Save</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-[#431412] text-center p-4">
+        <p style="color: #f1e9e1;">&copy; 2024 Hotel ni Malcolm </p>
+    </footer>
+
+    <script>
+        function editProfile() {
+            // Show the edit form and populate it with current values
+            document.getElementById('edit-form').classList.remove('hidden');
+            document.getElementById('name-input').value = document.getElementById('name-display').textContent;
+            document.getElementById('role-input').value = document.getElementById('role-display').textContent;
+            document.getElementById('location-input').value = document.getElementById('location-display').textContent.split(': ')[1];
+            document.getElementById('email-input').value = document.getElementById('email-display').textContent.split(': ')[1];
+            document.getElementById('phone-input').value = document.getElementById('phone-display').textContent.split(': ')[1];
+        }
+
+        function saveProfile() {
+            // Update display with new values and hide the edit form
+            document.getElementById('name-display').textContent = document.getElementById('name-input').value;
+            document.getElementById('role-display').textContent = document.getElementById('role-input').value;
+            document.getElementById('location-display').textContent = 'Location: ' + document.getElementById('location-input').value;
+            document.getElementById('email-display').textContent = 'Email: ' + document.getElementById('email-input').value;
+            document.getElementById('phone-display').textContent = 'Phone: ' + document.getElementById('phone-input').value;
+            document.getElementById('edit-form').classList.add('hidden');
+        }
+    </script>
+
+
+
+
+</body>
+
+
+<script>
+    document.getElementById('about-link').addEventListener('click', function() {
+        document.getElementById('about-popup').classList.remove('hidden');
+    });
+
+    document.getElementById('contact-link').addEventListener('click', function() {
+        document.getElementById('contact-popup').classList.remove('hidden');
+    });
+
+    function closePopup(popupId) {
+        document.getElementById(popupId).classList.add('hidden');
+    }
+</script>
+
+    <!-- About Us -->
+    <div id="about-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="popup-container">
+            <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('about-popup')">X</button>
+            <h2 style="font-weight: bolder;" class="text-2xl mb-4">About Us</h2>
+            <p>Welcome to Hotel ni Malcolm, where comfort meets luxury in the heart of Manila. Our hotel offers a blend of modern amenities and traditional hospitality to make your stay unforgettable. Whether you're here for business or leisure, our dedicated team is committed to providing exceptional service and ensuring a memorable experience. Explore the vibrant city of Manila while enjoying the tranquility of our elegant accommodations.</p>
+        </div>
+    </div>
+
+
+          <!-- Contact Us -->
+          <div id="contact-popup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="popup-container">
+                <button style="padding-right: 15px; color: #994a1d;" class="absolute top-2 right-2 text-white" onclick="closePopup('contact-popup')">X</button>
+                <h2 style="font-weight: bolder;" class="text-2xl mb-4">Contact Us</h2>
+                <p>For inquiries or reservations, please reach out to us:</p>
+                <p><strong>Address:</strong> Hotel ni Malcolm, Manila, PH</p>
+                <p><strong>Phone:</strong> +63 9120328432</p>
+                <p><strong>Email:</strong> <a href="mailto:info@hotel.com">info@yourhotel.com</a></p>         
+            </div>
+        </div>
+
+
+
+</html>
