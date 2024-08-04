@@ -5,10 +5,8 @@ const feedback = require('../models/feedbackModel');
 const recordFeedback = async (req, res) => {
     try {
         const { reservationId, feedbackData } = req.body;
-     //   console.log(reservationid2,feedbackData)
-       
-       
-        // Create an array of feedback questions and answers based on the expected format
+         
+      // Create an array of feedback questions and answers based on the expected format
         const feedbackQuestions = [
             { question: 'How satisfied are you with our service?', answer: feedbackData.service },
             { question: 'How would you rate the cleanliness?', answer: feedbackData.cleanliness },
