@@ -2,7 +2,6 @@
 import './App.css';
 import BookPage from './Pages/BookPage.js';
 import GuestInfo from './Pages/GuestInfo.js';
-import PickARoom from './Pages/PickARoom.js';
 import Payment from './Pages/Payment.js';
 import Feedback from './Pages/Feedback.js';
 import StartingPage from './Pages/StartingPage.js';
@@ -26,7 +25,6 @@ function App() {
             <Route path="/mainmenu" Component={MainMenu} />
             <Route path="/walkin" Component={BookPage} />
             <Route path='/guestinfo' Component={GuestInfo} />
-            <Route path='/rooms' Component={PickARoom} />
             <Route path='/payment' Component={Payment} />
             <Route path ='/feedback' Component={Feedback} />
             <Route path='/checkout' Component={CheckoutVerification} />

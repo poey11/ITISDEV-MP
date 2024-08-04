@@ -24,8 +24,8 @@ const GuestInfo = () => {
 
     return (  
         <body className="text-gray-300 min-h-screen flex flex-col justify-between">
+            <NavBar />
             <main className="flex-grow">
-                    <NavBar />
                 <div className="flex items-center justify-center h-full">
                     <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
                         <h2 className="text-xl font-semibold mb-5 text-center text-black">Guest Information</h2>
@@ -74,8 +74,8 @@ const GuestInfo = () => {
                         </form>
                     </div>
                 </div>
-                <Footer />
             </main>
+            <Footer />
         </body>
     );
 }

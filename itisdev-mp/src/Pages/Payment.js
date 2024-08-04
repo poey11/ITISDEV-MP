@@ -44,7 +44,7 @@ const Payment = () => {
         }
         return pin;
     }
-
+    const pin = pinGenerator();
   
     const emailText = "Thank you for choosing our hotel. Your reservation details are as follows: \n\n" 
     + "Reservation Named Under: " + guestData.FullName+"\n"
@@ -54,7 +54,7 @@ const Payment = () => {
     + "Check Out: " + reservationData.checkOut + "\n"
     + "Nos of Days: " + numberOfDays + " Days\n"
     + "Total Amount: $" +reservationData.roomPrice * numberOfDays+ "\n"
-    + "Check In/out Pin: " + pinGenerator() + "\n\n"
+    + "Check In/out Pin: " + pin + "\n\n"
     + "Thank you for booking in our hotel and have a great day!";
 
     const handleSubmit = async (e) => {
@@ -88,7 +88,7 @@ const Payment = () => {
             checkOut: reservationData.checkOut,
             days: getNumberOfDays(reservationData.checkIn, reservationData.checkOut),
             roomNumber:roomNumber,
-            pin: pinGenerator()
+            pin: pin
         }
         
         const reservationResponse = await fetch('/api/reserve', {
