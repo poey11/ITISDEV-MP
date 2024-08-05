@@ -47,7 +47,7 @@ const Payment = () => {
     const pin = pinGenerator();
   
     const emailText = "Thank you for choosing our hotel. Your reservation details are as follows: \n\n" 
-    + "Reservation Named Under: " + guestData.FullName+"\n"
+    + "Reservation Named Under: " + guestData.fullName+"\n"
     + "Room Title: " + reservationData.roomTitle + "\n"
     + "Room Type: " + reservationData.roomType + "\n"
     + "Check In: " + reservationData.checkIn + "\n"
@@ -159,8 +159,8 @@ const Payment = () => {
         }
 
 
-        alert('Please insert, swipe, or tap your card to pay!');
-        navigate('/');
+        alert('Please insert, swipe, or tap your card at the terminal to pay. After Confirming payment, you will receive an email with your reservation details. Thank you for choosing our hotel.');
+        navigate('/mainmenu');
     };
     
     

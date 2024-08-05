@@ -10,6 +10,7 @@ import CheckoutAdditionalCharges from './Pages/CheckoutAdditionalCharges.js';
 import CheckInPage from './Pages/CheckInPage';
 import CheckInSuccessPage from './Pages/CheckInSuccessPage';
 import MainMenu from './Pages/MainMenu.js';
+import Walkin from './Pages/Walkin.js';
 import {
   BrowserRouter as Router,
   Route,
@@ -23,7 +24,7 @@ function App() {
           <Routes>
             <Route path="/" Component={StartingPage} />
             <Route path="/mainmenu" Component={MainMenu} />
-            <Route path="/walkin" Component={BookPage} />
+            <Route path="/book" Component={BookPage} />
             <Route path='/guestinfo' Component={GuestInfo} />
             <Route path='/payment' Component={Payment} />
             <Route path ='/feedback' Component={Feedback} />
@@ -31,6 +32,7 @@ function App() {
             <Route path='/checkoutWCharges' Component={CheckoutAdditionalCharges} />
             <Route path='/checkin' Component={CheckInPage } />
             <Route path='/checkin-success' Component={CheckInSuccessPage } />
+            <Route path='/walkin' Component={Walkin} /> 
           </Routes>
         </Router>
     </div>
