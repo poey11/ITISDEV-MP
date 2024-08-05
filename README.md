@@ -50,5 +50,5 @@ A brief description of your project, its purpose, and what it does.
 • `npm run eject` If you need to customize the build configuration and dependencies Note: This is a one-way operation. Once you eject, you can't go back!
 
 ##### Additional Information
-• Frontend: The frontend is built with React. For more information about React, visit the official documentation.
+• Framework: The framework being used is React. For more information about React, visit the official documentation.
 • Backend: The backend is located in the backend directory. Ensure you have the necessary dependencies installed by running npm run install-server.
