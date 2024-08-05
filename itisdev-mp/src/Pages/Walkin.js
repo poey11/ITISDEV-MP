@@ -9,10 +9,16 @@ const Walkin = () => {
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
     const [type, setType] = useState('');   
+    const [currentDate, setCurrentDate] = useState('');
+
+
     useEffect(() => {
         const today = new Date();
-        const formattedDate = today.toISOString().split('T')[0];
-        document.getElementById('datepicker-range-start').value = formattedDate;
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); 
+        const day = String(today.getDate()).padStart(2, '0'); 
+        const formattedDate = `${year}-${month}-${day}`;
+        setCurrentDate(formattedDate);
     }, []);
 
     const rooms = [
@@ -89,7 +95,7 @@ const Walkin = () => {
                     <div className="flex flex-col items-center mt-4 space-y-4">
                         <div className="flex items-center space-x-4">
                             <div className="relative">
-                                <input id="datepicker-range-start" name="start" type="date" className="date-picker bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5" placeholder="Select date start" disabled required/>
+                                <input id="datepicker-range-start" name="start" type="date" className="date-picker bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full  p-2.5" placeholder="Select date start" defaultValue={currentDate} disabled  required/>
                             </div>
                             <div className="relative ml-4">
                                 <input  id="datepicker-range-end" name="end" type="date" className="date-picker bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Select date end" required/>
