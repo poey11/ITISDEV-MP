@@ -57,7 +57,7 @@ const Walkin = () => {
             roomPrice: price.replace('₱','').replace(' per night',''),
             roomTitle: title,
             roomType:type,
-            checkIn: document.getElementById('datepicker-range-start').value,
+            checkIn: currentDate,
             checkOut: document.getElementById('datepicker-range-end').value,
         };
         navigate('/guestinfo', {state: {reservationData}});
